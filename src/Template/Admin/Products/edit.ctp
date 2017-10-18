@@ -100,15 +100,47 @@ $( document ).ready(function() {
                 </div>
                 <div class="col-md-6">
                   <div class="form-group form-material">
-                <label class="control-label" for="inputPassword">Show/Hide</label>
-                <select class="form-control" name="is_display">
-                  <option value="1">Show</option>
-                  <option value="0">Hide</option>
-                </option>
-                </select>
-              </div>
+                    <label class="control-label" for="inputPassword">Show/Hide</label>
+                    <select class="form-control" name="is_display">
+                      <option value="1">Show</option>
+                      <option value="0">Hide</option>
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </div>
+
+              <?php if ($product->is_admin == 1) {?>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group form-material">
+                    <label class="control-label" for="width">Width</label>
+                    <?= $this->Form->input('width', ['class' => 'form-control', 'label' => false]) ?>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group form-material">
+                    <label class="control-label" for="height">Height</label>
+                    <?= $this->Form->input('height', ['class' => 'form-control', 'label' => false]) ?>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group form-material">
+                    <label class="control-label" for="brand">Brand</label>
+                    <?= $this->Form->input('brand', ['class' => 'form-control', 'label' => false]) ?>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group form-material">
+                    <label class="control-label" for="depth">Depth</label>
+                    <?= $this->Form->input('depth', ['class' => 'form-control', 'label' => false]) ?>
+                  </div>
+                </div>
+              </div>
+              <?php } ?>
               <!--<div class="row">
                 <div class="col-md-6">
                   <div class="form-group form-material">

@@ -1,13 +1,27 @@
 <?= $this->assign('title', 'Add a product') ?>
 <?php use Cake\Routing\Router; ?>
-
 <?php $this->start('scriptBottom');
 echo $this->Html->script('ckeditor/ckeditor') ?>
+
 <script type="text/javascript">
   CKEDITOR.replace('articleBox', {
     customConfig: 'config/article.js'
   });
+  $( function() {
+
+      var availableTags = <?php echo $brands ?>;
+      $( "#brand" ).autocomplete({
+          source: availableTags
+      });
+  } );
 </script>
+
+<style>
+  .ui-autocomplete.ui-menu .ui-menu-item {
+      padding: 3px 1em 3px .4em;
+  }
+
+</style>
 
 <?php $this->end() ?>
 
@@ -33,6 +47,7 @@ echo $this->Html->script('ckeditor/ckeditor') ?>
         'role' => 'form',
         'type' => 'file'
       ]) ?>
+      <input type="hidden" name="is_admin" value="1" />
       <div class="row">
         <div class="col-sm-6">
           <!-- Panel Static Lables -->
@@ -48,33 +63,49 @@ echo $this->Html->script('ckeditor/ckeditor') ?>
                     <?= $this->Form->input('name', ['class' => 'form-control', 'label' => false]) ?>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group form-material">
-                     <label class="control-label" for="inputText">Merchant</label>
-                    <?= $this->Form->input('user_id', ['options' => $merchants, 'class' => 'form-control', 'label' => false]) ?>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
                 <div class='col-md-6'>
                   <div class="form-group form-material">
-                    <label class="control-label" for="inputPassword">Show/Hide</label>
+                    <label class="control-label" for="is_display">Show/Hide</label>
                     <select class="form-control" name="is_display">
                       <option value="1">Show</option>
                       <option value="0">Hide</option>
-                    </option>
+                      </option>
                     </select>
                   </div>
                 </div>
-              
-                
-                <div class="col-md-6" id="shopDiv" style="display:none;">
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
                   <div class="form-group form-material">
-                   <div id="subShopDiv" style="display:none;"></div>
+                    <label class="control-label" for="width">Width</label>
+                    <!--<?= $this->Form->input('user_id', ['options' => $merchants, 'class' => 'form-control', 'label' => false]) ?>-->
+                    <?= $this->Form->input('width', ['class' => 'form-control', 'label' => false]) ?>
                   </div>
                 </div>
-				
+                <div class="col-md-6">
+                  <div class="form-group form-material">
+                    <label class="control-label" for="height">Height</label>
+                    <?= $this->Form->input('height', ['class' => 'form-control', 'label' => false]) ?>
+                  </div>
+                </div>
               </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group form-material">
+                    <label class="control-label" for="brand">Brand</label>
+                    <?= $this->Form->input('brand', ['class' => 'form-control', 'label' => false]) ?>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group form-material">
+                    <label class="control-label" for="depth">Depth</label>
+                    <?= $this->Form->input('depth', ['class' => 'form-control', 'label' => false]) ?>
+                  </div>
+                </div>
+              </div>
+
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="control-label"><strong>Hero File</strong></label>
@@ -141,7 +172,7 @@ echo $this->Html->script('ckeditor/ckeditor') ?>
     </div>
   </div>
   <!-- End Page -->
-<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
 <?php $site_url =  'http://' . $_SERVER['HTTP_HOST'] . '/'; ?>
 <script type="text/javascript">
 	

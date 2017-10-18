@@ -56,6 +56,7 @@
         'vendor/datatables-bootstrap/dataTables.bootstrap.css',
         'vendor/datatables-fixedheader/dataTables.fixedHeader.css',
         'vendor/datatables-responsive/dataTables.responsive.css',
+        'vendor/jquery-ui/jquery-ui.css',
         'examples/css/tables/datatable.css',
         'dropzone.css'
     ]) ?>
@@ -63,7 +64,8 @@
     <?= $this->Html->script([
         'vendor/jquery/jquery.js',
         'vendor/modernizr/modernizr.js',
-        'vendor/breakpoints/breakpoints.js'
+        'vendor/breakpoints/breakpoints.js',
+        'vendor/jquery-ui/jquery-ui.min'
     ]); ?>
 
     <!--[if lt IE 9]>

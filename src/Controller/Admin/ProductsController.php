@@ -176,8 +176,6 @@ class ProductsController extends AppController
 			$product->merchant_id = $product->user_id;
 			
 			if ($this->Products->save($product)) {	
-
-
 				$lastInsertedId = $product->id;
 				$this->loadModel('UserProducts');
 				$user_product = $this->UserProducts->newEntity();
@@ -203,11 +201,16 @@ class ProductsController extends AppController
 				return ucwords($user_id->get('user_id'));
 			}			
 		]);
-		$shopUserIds1 = $shopUserIds->toArray();		
-		$impdata = implode(",", $shopUserIds1);		
+		$shopUserIds1 = $shopUserIds->toArray();
+		$impdata = implode(",", $shopUserIds1);
 		
 		$merchants = $this->Users->find('list')->where(['Users.id IN ('.$impdata.') AND Users.group_id=3']);
-        $this->set(compact('product', 'merchants'));
+		$brands = $this->Products->find()->where(['brand !=' => '', 'brand is not ' => null])->distinct(['brand'])->extract('brand');
+        $brands = implode(',', array_map(function($value) {
+            return '"' . $value . '"';
+        }, $brands->toArray()));
+        $brands = '['. $brands.']';
+        $this->set(compact('product', 'merchants', 'brands'));
 
     }
 
@@ -219,7 +222,6 @@ class ProductsController extends AppController
     public function edit()
     {
         $this->loadModel('Products');
-
         $product = $this->Products
             ->find('all')
             ->where([
@@ -241,10 +243,13 @@ class ProductsController extends AppController
             }
         }
 
-        // The product has to be linked to a store
+        $brands = $this->Products->find()->where(['brand !=' => '', 'brand is not ' => null])->distinct(['brand'])->extract('brand');
+        $brands = implode(',', array_map(function($value) {
+            return '"' . $value . '"';
+        }, $brands->toArray()));
+        $brands = '['. $brands.']';
 
-        //$categories = $this->Products->BlogCategories->find('list');
-        $this->set(compact('product'));
+        $this->set(compact('product', 'brands'));
     }
 
     /**

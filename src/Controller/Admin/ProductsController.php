@@ -167,10 +167,7 @@ class ProductsController extends AppController
         $this->loadModel('Users');
         $this->loadModel('Shops');
 
-		$impdata = array();
-        $product = $this->Products->newEntity($this->request->data);
-
-		
+		$product = $this->Products->newEntity($this->request->data);
         if ($this->request->is('post')) {
 			
 			$product->merchant_id = $product->user_id;
@@ -202,8 +199,9 @@ class ProductsController extends AppController
 			}			
 		]);
 		$shopUserIds1 = $shopUserIds->toArray();
+        $impdata = array();
 		$impdata = implode(",", $shopUserIds1);
-		
+
 		$merchants = $this->Users->find('list')->where(['Users.id IN ('.$impdata.') AND Users.group_id=3']);
 		$brands = $this->Products->find()->where(['brand !=' => '', 'brand is not ' => null])->distinct(['brand'])->extract('brand');
         $brands = implode(',', array_map(function($value) {
